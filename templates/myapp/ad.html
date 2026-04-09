@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+
+
+<head>
+    <title>Foydalanuvchi ma'lumoti</title>
+    {% load static %}
+    <style>
+        body {
+            background: #0a1d4b;
+
+            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;  
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .user-card {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #38bdf8;
+        }
+
+        .user-card img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .user-card img:hover {
+            transform: scale(1.05);
+        }
+
+        .user-info p {
+            margin: 8px 0;
+            font-size: 16px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            color: #94a3b8;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .back-btn:hover {
+            color: #38bdf8;
+            border-color: #38bdf8;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .detail-btn {
+            text-decoration: none;        
+            color: white;
+            background: #3b82f6;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: 03s;
+        }
+ .detail-btn:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+
+    <div class="user-card">
+        <h1>Foydalanuvchitlari</h1>
+        <hr style="border-color: rgba(255,255,255,0.2);">
+        {% if user %}</div>
+        {% if user.pic %}
+        <img src="{{ user.url }}" alt="Foydalanuvchi rasm">
+        {% else %}
+        <img src="{% static 'images/default.jpg' %}" alt="Default rasm">
+        {% endif %}
+
+        <div class="user-info">
+            <p><b>Ismi:</b> {{ user.ism }}</p>
+            <p><b>Familiyasi:</b> {{ user.familiya }}</p>
+            <p><b>Email:</b> {{ user.email }}</p>
+            <p><b>Fan:</b> {{ user.fan }}</p>
+        </div>
+        {% endif %}
+
+        <a class="back-btn" href="{% url 'user_lst' %}">⬅️ Ro'yxatga qaytish</a>
+        <a class="detail-btn" href="{% url 'student_update' user.slug %}">
+            Tahrirlash
+        </a>
+
+        {% if user.is_authenticated %}
+        <div style="background: #eee; padding: 10px;">
+            <b>{{ user.username }}</b>!
+            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit">Chiqish</button>
+            </form>
+        </div>
+        {% else %}
+        <a class="detail-btn" href="{% url 'logout' %}">Chiqish</a>
+        {% endif %}
+    </div>
+
+</body>
+</html>

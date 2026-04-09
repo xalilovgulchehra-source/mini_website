@@ -1,0 +1,229 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcha Darslar | O'quv Platformasi</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<style>
+    /* --- Umumiy Sozlamalar --- */
+:root {
+    --primary-color: #4a6cf7;    /* Asosiy ko'k rang */
+    --secondary-color: #2ecc71;  /* Yashil rang (Ko'rish knopkasi uchun) */
+    --accent-color: #e74c3c;     /* Qizil rang (Hali yuklanmagan matn uchun) */
+    --bg-color: #f4f7f6;         /* Sahifa orqa foni */
+    --text-color: #2c3e50;       /* Asosiy matn rangi */
+    --muted-text: #7f8c8d;       /* Tavsif matni rangi */
+    --card-bg: #ffffff;          /* Karta orqa foni */
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Soya effekti */
+    --transition: all 0.3s ease; /* Silliq o'tish effekti */
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    line-height: 1.6;
+    background: antiquewhite;
+}
+
+/* --- Knopkalar Uchun Umumiy Stillar --- */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    font-size: 1rem;
+}
+
+/* --- Darslar Ro'yxati Sahifasi (`darslar_list.html`) --- */
+.list-container {
+    max-width: 1100px;
+    width: 100%;
+}
+
+.page-title {
+    text-align: center;
+    color: var(--text-color);
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+.darslar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.dars-card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.dars-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.dars-card h3 {
+    margin: 0 0 12px 0;
+    color: var(--text-color);
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.dars-card p {
+    color: var(--muted-text);
+    font-size: 1rem;
+    margin-bottom: 25px;
+    flex-grow: 1; /* Tavsif joyini to'ldiradi */
+}
+
+/* Yashil "Ko'rish" Knopkasi */
+.view-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    width: 100%; /* Kartani to'liq to'ldiradi */
+    box-sizing: border-box; /* Paddingni hisobga oladi */
+}
+
+.view-btn:hover {
+    background-color: #27ae60;
+    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+}
+
+.video-card {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 850px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 nisbat */
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #000;
+    margin-bottom: 25px;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.5); /* Ichki soya */
+}
+
+.video-container iframe, 
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.no-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.content-section h1 {
+    color: var(--text-color);
+    margin: 0 0 15px 0;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+
+.description {
+    color: var(--muted-text);
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+.back-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.back-btn:hover {
+    background-color: #3b5bdb; /* To'qroq ko'k */
+    box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
+}
+
+.source-link {
+    display: block;
+    margin-top: 15px;
+    color: var(--muted-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.source-link:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.error-text {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+</style>
+
+    <div class="list-container">
+        <h1 class="page-title">Barcha Darslar</h1>
+
+        <div class="darslar-grid">
+    {% for item in dars %}
+        <div style="background:white; padding:15px; margin:10px; border-radius:10px;">
+            
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.description }}</p>
+
+            <a href="{% url 'dars_detail' item.id %}">
+                Ko‘rish
+            </a>
+
+        </div>
+    {% endfor %}
+
+        </div>
+    </div>
+
+</body>
+</html>

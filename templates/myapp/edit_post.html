@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Postni tahrirlash</title>
+</head>
+<body>
+
+    <h2>Postni tahrirlash</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+        
+        <button type="submit">O'zgarishlarni saqlash</button>
+        
+        <a href="{% url 'post_detail' post.pk %}">Bekor qilish</a>
+    </form>
+
+</body>
+</html>

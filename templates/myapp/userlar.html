@@ -1,0 +1,114 @@
+<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: aqua;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .user-list {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .user-card {
+            background: #ffffff;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+        }
+
+        .user-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .user-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .detail-btn {
+            text-decoration: none;
+            background: #3b82f6;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .detail-btn:hover {
+            background: #2563eb;
+        }
+
+        .add-btn {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .add-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+
+    <h1>Bizning O'qituvchilar</h1>
+
+    {% if user.is_authenticated %}
+        <a class="add-btn" href="{% url 'student_create' %}">+ Odam qo'shish</a>
+        <a class="add-btn" href="{% url 'dars_list' %}">Dars ko'rish</a>
+            <form class="add-btn" action="{% url 'logout' %}" method="post" style="display: inline; margin: 0;">
+                {% csrf_token %}
+                <button type="submit" style="background: none; border: none; color: white; cursor: pointer; font-size: 16px; font-weight: bold; padding: 0;">
+                    Logout
+                </button>
+            </form>
+        <hr>
+
+<div class="user-list">
+    {% for u in users %} <div class="user-card">
+        <div class="user-name">{{ u.ism }} {{ u.familiya }}</div> 
+
+        {% if u.slug %}
+            <a class="detail-btn" href="{% url 'student_detail' u.slug %}">
+                Batafsil
+            </a>
+        {% else %}
+            <span style="color: #94a3b8; font-size: 12px;">Slug yo'q</span>
+        {% endif %}
+    </div>
+    {% empty %}
+        <p>Hozircha bazada hech kim yo'q.</p>
+    {% endfor %}
+</div>
+    {% else %}
+        <div style="text-align: center; background: white; padding: 30px; border-radius: 15px; max-width: 400px; margin: auto;">
+            <h2>Ro'yxatni ko'rish uchun tizimga kiring!</h2>
+        </div>
+    {% endif %}
+
+    <div class="buttons" style="display: flex; align-items: center; gap: 15px; margin-top: 20px; justify-content: center;">
+        
+        <a href="/" style="text-decoration: none; color: #a1a1aa;">⬅️ Bosh sahifa</a>
+
+        {% if user.is_authenticated %}
+        {% else %}
+            <a href="{% url 'login' %}" style="color: white; text-decoration: none; font-weight: bold; font-size: 16px;">
+                Kirish
+            </a>
+        {% endif %}
+    </div>
+
+</body>
