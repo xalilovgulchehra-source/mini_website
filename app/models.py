@@ -47,3 +47,17 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Dars(models.Model):
+    nomi = models.CharField(max_length=200)
+    haqida = models.TextField() 
+    sana = models.DateTimeField(auto_now_add=True)
+    video_fayl = models.FileField(upload_to='media/videos')
+
+    def __str__(self):
+        return self.nomi
+    
+class Alo(models.Model):
+    ism = models.CharField(max_length=100)
+    familiya = models.CharField(max_length=100)
+    pic = models.ImageField(upload_to='media/profile_pics')
